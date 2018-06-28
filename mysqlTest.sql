@@ -64,10 +64,68 @@ select * from emp,(select job,deptno from emp where ename='FORD') tmp where emp.
 	
 --20、查询和10号部门工作相同的雇员的名字，岗位，工资，部门号。但是不包含10部门的员工
 select ename,emp.job,sal,deptno from emp ,(select job from emp where deptno=10 group by job) tmp where deptno!=10 and emp.job=tmp.job; 
-21、
-22、
-23、
-24、
-25、
+
+
+--案例1
+--创建一张学生表
+--包含：编号，姓名，生日，性别，邮箱，编号为主键
+create table stu(
+    id int primary key,
+    name varchar(16) not null,
+    birth date,
+    sex char(6) default 'male',
+    email varchar(30) unique
+);
+
+--21、为学生表增加证件照存储路径字段
+alter table stu add image varchar(100) comment '证件照路径';
+
+--22、为学生表添加住址字段，若没有设置默认为空字符串
+alter table stu add addr varchar(100) commit '家庭住址' default null;
+
+--23、为学生表插入2条记录
+insert into stu values(1,'mia',1998-11-09,'女'，'10000@qq.com','d://image','a小区b楼'),(2,'tom',1999-08-21,'男','1234567@qq.com','d://image','a小区c楼');
+
+--24、更新学生信息表中的数据
+update table stu set col_name=new_value [where 条件...];
+
+--25、删除指定学生表中的数据
+delete from stu [where 条件];
+--或者使用truncate
+truncate table stu;--删除整个表中的所有数据，表结构依旧存在
+
+--26、为学生表中的邮箱字段添加唯一键
+alter table stu add unique(email);
+
+--27、为学生表中的邮箱字段删除唯一键
+alter table stu drop index image;
+--或者
+drop index image on stu;
+
+--案例2
+--在scott数据库中创建一张emp_backup表，和emp表的结构数据均相同
+--分两步完成
+--第一步
+create table emp_backup like emp;
+--第二步
+insert into emp_backup select * from emp;
+
+--案例3
+--在scott.emp_backup表中批量快速插入数据，使的数量超过100条
+
+--案例4
+--删除scott.emp_backup表中的重复记录
+
+--案例5
+--清空emp_backup中的数据
+delete from emp_backup;
+--或者使用truncate
+truncate table emp_backup;
+
+
+
+
+
+
 
 
