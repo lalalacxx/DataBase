@@ -70,18 +70,18 @@ select ename,emp.job,sal,deptno from emp ,(select job from emp where deptno=10 g
 --创建一张学生表
 --包含：编号，姓名，生日，性别，邮箱，编号为主键
 create table stu(
-    id int primary key,
-    name varchar(16) not null,
-    birth date,
-    sex char(6) default 'male',
-    email varchar(30) unique
+    id int primary key comment '学生编号'，
+    name varchar(16) not null comment '学生姓名',
+    birth date comment '学生出生日期',
+    gender char(6) default 'male' comment '学生性别',
+    email varchar(30) unique comment '学生邮箱'
 );
 
 --21、为学生表增加证件照存储路径字段
 alter table stu add image varchar(100) comment '证件照路径';
 
 --22、为学生表添加住址字段，若没有设置默认为空字符串
-alter table stu add addr varchar(100) commit '家庭住址' default null;
+alter table stu add addr varchar(100) comment '家庭住址' default null;
 
 --23、为学生表插入2条记录
 insert into stu values(1,'mia',1998-11-09,'女'，'10000@qq.com','d://image','a小区b楼'),(2,'tom',1999-08-21,'男','1234567@qq.com','d://image','a小区c楼');
@@ -111,21 +111,7 @@ create table emp_backup like emp;
 insert into emp_backup select * from emp;
 
 --案例3
---在scott.emp_backup表中批量快速插入数据，使的数量超过100条
-
---案例4
---删除scott.emp_backup表中的重复记录
-
---案例5
 --清空emp_backup中的数据
 delete from emp_backup;
 --或者使用truncate
 truncate table emp_backup;
-
-
-
-
-
-
-
-
